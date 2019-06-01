@@ -1,0 +1,12 @@
+{
+    "name": "deClutter",
+    "version": "1.0",
+    "description": "Helps you remove unwanted elements from the webpage. It can remember the elements so that next time you visit the page, you are presented your personlised version of the same website.",
+    "manifest_version": 2,
+    "permissions": ["storage"],
+    "content_scripts": [{
+            "matches": ["*://*/*"],
+            "js": ["myscript.js"]
+        }
+    ]
+}
