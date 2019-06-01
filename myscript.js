@@ -8,14 +8,14 @@ function inform() {
 
 function init () {
 	declutter_list1 = document.getElementsByTagName('body')[0].getElementsByTagName('*');
-	// document.addEventListener("keyup", function(event) {
-	// 	var code = event.which || event.keyCode;
-	// 	if (code == 17) declutter_flag = 0;
-	// });
-	// document.addEventListener("keydown", function(event) {
-	// 	var code = event.which || event.keyCode;
-	// 	if (code == 17) declutter_flag = 1;
-	// });
+	document.addEventListener("keyup", function(event) {
+		var code = event.which || event.keyCode;
+		if (code == 18) declutter_flag = 0;
+	});
+	document.addEventListener("keydown", function(event) {
+		var code = event.which || event.keyCode;
+		if (code == 18) declutter_flag = 1;
+	});
 	for (var i = 0; i < declutter_list1.length; i++) {
 		declutter_list1[i].addEventListener("click", function (event) {
 			if (declutter_flag && this == event.target) this.style.display = "none";
