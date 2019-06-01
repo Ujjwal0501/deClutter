@@ -1,4 +1,4 @@
-var declutter_list1, declutter_flag = 0;
+var declutter_list1, declutter_flag = 0, declutter_hides = [], declutter_undo;
 
 function inform() {
 	// initialize the webpage
@@ -18,7 +18,11 @@ function init () {
 	});
 	for (var i = 0; i < declutter_list1.length; i++) {
 		declutter_list1[i].addEventListener("click", function (event) {
-			if (declutter_flag && this == event.target) this.style.display = "none";
+			if (declutter_flag && this == event.target) {
+				this.style.display = "none";
+				declutter_hides.unshift(this);
+				declutter_undo.style.display = "inline";
+			}
 			
 			// if (declutter_flag) this.style.display = "none";
 			// event.stopPropagation();
@@ -32,6 +36,7 @@ function init () {
 function create_layout () {
 	var div = document.createElement("div"),
 		rightalign = document.createElement("img"),
+		undo = document.createElement("img"),
 		start = document.createElement("img"),
 		pause = document.createElement("img"),
 		close = document.createElement("img"),
@@ -47,13 +52,17 @@ function create_layout () {
 	pause.style.width = "20px";
 	close.style.height = "20px";
 	close.style.width = "20px";
+	undo.style.height = "20px";
+	undo.style.width = "20px";
 	rightalign.src = chrome.extension.getURL("favicon/61151.png");
 	leftalign.src = chrome.extension.getURL("favicon/61152.png");
 	pause.src = chrome.extension.getURL("favicon/61153.png");
 	start.src = chrome.extension.getURL("favicon/61154.png");
 	close.src = chrome.extension.getURL("favicon/61155.png");
+	undo.src = chrome.extension.getURL("favicon/61150.png");
 	
 	div.appendChild(leftalign);
+	div.appendChild(undo);
 	div.appendChild(start);
 	div.appendChild(pause);
 	div.appendChild(close);
@@ -99,7 +108,20 @@ function create_layout () {
 	
 	close.addEventListener("click", () => {
 		div.style.display = "none";
-	})
+	});
+	
+	// undo the hidden elements
+	undo.addEventListener("click", () => {
+		if (declutter_hides.length > 0) {
+			declutter_hides[0].style.display = "block";
+			declutter_hides.shift();
+			
+			if (declutter_hides.length == 0) undo.style.display = "none";
+		}
+	});
+	undo.style.display = "none";
+	
+	declutter_undo = undo;
 	
 	document.body.prepend(div);
 }
