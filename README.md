@@ -1,5 +1,5 @@
 # deClutter (Description)
-A google-chrome browser extension that allows to remove the unwanted elements of the web-pages. It gives you a personalised version of the website. And can remember the elements marked unwanted by the user.
+A google-chrome browser extension that allows to remove the unwanted elements of the web-pages. It gives you a personalised version of the website :-). And can remember the elements marked unwanted by the user (to be implemented).
 
 ## Installation
   - Clone or donwload this repository

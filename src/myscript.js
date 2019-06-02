@@ -1,4 +1,4 @@
-var declutter_list1, declutter_flag = 0, declutter_hides = [], declutter_undo;
+var declutter_list1, declutter_flag = 0, declutter_hides = [], declutter_undo, declutter_disp = [];
 
 function inform() {
 	// initialize the webpage
@@ -19,9 +19,11 @@ function init () {
 	for (var i = 0; i < declutter_list1.length; i++) {
 		declutter_list1[i].addEventListener("click", function (event) {
 			if (declutter_flag && this == event.target) {
+				declutter_disp.unshift(this.style.display);
 				this.style.display = "none";
 				declutter_hides.unshift(this);
 				declutter_undo.style.display = "inline";
+				console.log(this+"");
 			}
 			
 			// if (declutter_flag) this.style.display = "none";
@@ -113,8 +115,11 @@ function create_layout () {
 	// undo the hidden elements
 	undo.addEventListener("click", () => {
 		if (declutter_hides.length > 0) {
-			declutter_hides[0].style.display = "block";
+			var disp = "" + declutter_disp[0];
+			if (disp == "") disp = "inherit";console.log(disp)
+			declutter_hides[0].style.display = disp;
 			declutter_hides.shift();
+			declutter_disp.shift();
 			
 			if (declutter_hides.length == 0) undo.style.display = "none";
 		}
