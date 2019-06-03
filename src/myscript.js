@@ -16,20 +16,18 @@ function init () {
 		var code = event.which || event.keyCode;
 		if (code == 18) declutter_flag = 1;
 	});
-	for (var i = 0; i < declutter_list1.length; i++) {
-		declutter_list1[i].addEventListener("click", function (event) {
-			if (declutter_flag && this == event.target) {
-				declutter_disp.unshift(this.style.display);
-				this.style.display = "none";
-				declutter_hides.unshift(this);
-				declutter_undo.style.display = "inline";
-				console.log(this+"");
-			}
-			
-			// if (declutter_flag) this.style.display = "none";
-			// event.stopPropagation();
-		});
-	}
+	document.body.addEventListener("click", function (event) {
+		if (declutter_flag && event.target.class != "declutter") {
+			declutter_disp.unshift(event.target.style.display);
+			event.target.style.display = "none";
+			declutter_hides.unshift(event.target);
+			declutter_undo.style.display = "inline";
+			console.log(event.target+"");
+		}
+		
+		// if (declutter_flag) this.style.display = "none";
+		// event.stopPropagation();
+	});
 	
 	// show control layout on the page
 	create_layout();
@@ -62,6 +60,13 @@ function create_layout () {
 	start.src = chrome.extension.getURL("favicon/61154.png");
 	close.src = chrome.extension.getURL("favicon/61155.png");
 	undo.src = chrome.extension.getURL("favicon/61150.png");
+	
+	rightalign.class = "declutter";
+	undo.class = "declutter";
+	start.class = "declutter";
+	pause.class = "declutter";
+	close.class = "declutter";
+	leftalign.class = "declutter";
 	
 	div.appendChild(leftalign);
 	div.appendChild(undo);
