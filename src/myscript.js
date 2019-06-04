@@ -31,6 +31,11 @@ function init () {
 	
 	// show control layout on the page
 	create_layout();
+
+	// handle focus gain after unexpected loss of focus
+	window.onfocus = () => {
+		declutter_flag = 0;
+	}
 }
 
 function create_layout () {
