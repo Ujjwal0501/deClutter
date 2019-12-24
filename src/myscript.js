@@ -16,8 +16,9 @@ function init () {
 		var code = event.which || event.keyCode;
 		if (code == 18) declutter_flag = 1;
 	});
-	document.body.addEventListener("click", function (event) {
+	document.addEventListener("click", function (event) {
 		if (declutter_flag && event.target.class != "declutter") {
+			event.preventDefault();
 			declutter_disp.unshift(event.target.style.display);
 			event.target.style.display = "none";
 			declutter_hides.unshift(event.target);
@@ -141,4 +142,4 @@ function create_layout () {
 	document.body.prepend(div);
 }
 
-window.onload = inform();
+inform();
